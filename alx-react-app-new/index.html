@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Cities - Enhanced</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        // Header Component with enhanced inline styling
+        function Header() {
+            return (
+                <header style={{
+                    backgroundColor: '#2c3e50',
+                    backgroundImage: 'linear-gradient(135deg, #2c3e50 0%, #3498db 100%)',
+                    color: 'white',
+                    textAlign: 'center',
+                    padding: '2rem',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    borderBottom: '5px solid #e74c3c'
+                }}>
+                    <h1 style={{
+                        margin: 0,
+                        fontSize: '2.8rem',
+                        fontWeight: 700,
+                        letterSpacing: '1.5px',
+                        textTransform: 'uppercase',
+                        textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                    }}>
+                        <i className="fas fa-globe-americas" style={{ marginRight: '15px' }}></i>
+                        My Favorite Cities
+                    </h1>
+                    <p style={{
+                        margin: '10px 0 0',
+                        fontSize: '1.2rem',
+                        fontWeight: 300,
+                        opacity: 0.9
+                    }}>
+                        Discover the most amazing urban destinations around the world
+                    </p>
+                </header>
+            );
+        }
+
+        // UserProfile Component with enhanced inline styling
+        function UserProfile(props) {
+            return (
+                <div style={{
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '12px',
+                    padding: '25px',
+                    margin: '20px',
+                    backgroundColor: 'white',
+                    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.08)',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    maxWidth: '500px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        marginBottom: '20px'
+                    }}>
+                        <div style={{
+                            width: '80px',
+                            height: '80px',
+                            borderRadius: '50%',
+                            backgroundColor: '#3498db',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: '20px',
+                            fontSize: '2rem',
+                            color: 'white',
+                            fontWeight: 'bold'
+                        }}>
+                            {props.name.charAt(0)}
+                        </div>
+                        <div>
+                            <h2 style={{
+                                color: '#2c3e50',
+                                margin: '0 0 5px',
+                                fontSize: '1.8rem'
+                            }}>
+                                {props.name}
+                            </h2>
+                            <p style={{
+                                margin: 0,
+                                color: '#7f8c8d',
+                                fontSize: '1rem'
+                            }}>
+                                <i className="fas fa-map-marker-alt" style={{ marginRight: '5px' }}></i>
+                                {props.location}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: '15px'
+                    }}>
+                        <div style={{
+                            textAlign: 'center',
+                            padding: '10px',
+                            backgroundColor: '#f8f9fa',
+                            borderRadius: '8px',
+                            flex: 1,
+                            margin: '0 5px'
+                        }}>
+                            <p style={{
+                                margin: 0,
+                                color: '#7f8c8d',
+                                fontSize: '0.9rem'
+                            }}>Age</p>
+                            <p style={{
+                                margin: 0,
+                                color: '#2c3e50',
+                                fontSize: '1.4rem',
+                                fontWeight: 'bold'
+                            }}>{props.age}</p>
+                        </div>
+                        
+                        <div style={{
+                            textAlign: 'center',
+                            padding: '10px',
+                            backgroundColor: '#f8f9fa',
+                            borderRadius: '8px',
+                            flex: 1,
+                            margin: '0 5px'
+                        }}>
+                            <p style={{
+                                margin: 0,
+                                color: '#7f8c8d',
+                                fontSize: '0.9rem'
+                            }}>Cities Visited</p>
+                            <p style={{
+                                margin: 0,
+                                color: '#2c3e50',
+                                fontSize: '1.4rem',
+                                fontWeight: 'bold'
+                            }}>{props.citiesVisited}</p>
+                        </div>
+                    </div>
+                    
+                    <div style={{
+                        backgroundColor: '#e8f4fc',
+                        padding: '15px',
+                        borderRadius: '8px',
+                        borderLeft: '4px solid #3498db'
+                    }}>
+                        <h3 style={{
+                            color: '#2c3e50',
+                            margin: '0 0 10px',
+                            fontSize: '1.2rem'
+                        }}>
+                            <i className="fas fa-user" style={{ marginRight: '8px' }}></i>
+                            Bio
+                        </h3>
+                        <p style={{
+                            margin: 0,
+                            color: '#34495e',
+                            lineHeight: '1.6',
+                            fontSize: '1rem'
+                        }}>{props.bio}</p>
+                    </div>
+                </div>
+            );
+        }
+
+        // MainContent Component with enhanced inline styling
+        function MainContent() {
+            return (
+                <main style={{
+                    padding: '30px',
+                    backgroundColor: '#f8f9fa',
+                    minHeight: 'calc(100vh - 200px)'
+                }}>
+                    <div style={{
+                        maxWidth: '1200px',
+                        margin: '0 auto'
+                    }}>
+                        <h2 style={{
+                            textAlign: 'center',
+                            color: '#2c3e50',
+                            fontSize: '2.2rem',
+                            margin: '0 0 30px',
+                            paddingBottom: '15px',
+                            borderBottom: '2px solid #e0e0e0'
+                        }}>
+                            <i className="fas fa-star" style={{ color: '#f39c12', marginRight: '10px' }}></i>
+                            Top City Recommendations
+                        </h2>
+                        
+                        <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'center',
+                            gap: '25px'
+                        }}>
+                            {/* City Card 1 */}
+                            <div style={{
+                                backgroundColor: 'white',
+                                borderRadius: '12px',
+                                overflow: 'hidden',
+                                width: '300px',
+                                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
+                                transition: 'transform 0.3s ease'
+                            }}>
+                                <div style={{
+                                    height: '180px',
+                                    backgroundImage: 'url(https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center'
+                                }}></div>
+                                <div style={{ padding: '20px' }}>
+                                    <h3 style={{
+                                        margin: '0 0 10px',
+                                        color: '#2c3e50',
+                                        fontSize: '1.5rem'
+                                    }}>New York City</h3>
+                                    <p style={{
+                                        margin: '0 0 15px',
+                                        color: '#7f8c8d',
+                                        fontSize: '0.95rem',
+                                        lineHeight: '1.5'
+                                    }}>The city that never sleeps with incredible energy and diversity.</p>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <span style={{
+                                            backgroundColor: '#e74c3c',
+                                            color: 'white',
+                                            padding: '5px 10px',
+                                            borderRadius: '20px',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 'bold'
+                                        }}>Must Visit</span>
+                                        <span style={{
+                                            color: '#f39c12',
+                                            fontSize: '1.1rem'
+                                        }}>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star-half-alt"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* City Card 2 */}
+                            <div style={{
+                                backgroundColor: 'white',
+                                borderRadius: '12px',
+                                overflow: 'hidden',
+                                width: '300px',
+                                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
+                                transition: 'transform 0.3s ease'
+                            }}>
+                                <div style={{
+                                    height: '180px',
+                                    backgroundImage: 'url(https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-4.0.3)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center'
+                                }}></div>
+                                <div style={{ padding: '20px' }}>
+                                    <h3 style={{
+                                        margin: '0 0 10px',
+                                        color: '#2c3e50',
+                                        fontSize: '1.5rem'
+                                    }}>Tokyo</h3>
+                                    <p style={{
+                                        margin: '0 0 15px',
+                                        color: '#7f8c8d',
+                                        fontSize: '0.95rem',
+                                        lineHeight: '1.5'
+                                    }}>A fascinating blend of ancient traditions and cutting-edge technology.</p>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <span style={{
+                                            backgroundColor: '#3498db',
+                                            color: 'white',
+                                            padding: '5px 10px',
+                                            borderRadius: '20px',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 'bold'
+                                        }}>Cultural Hub</span>
+                                        <span style={{
+                                            color: '#f39c12',
+                                            fontSize: '1.1rem'
+                                        }}>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* City Card 3 */}
+                            <div style={{
+                                backgroundColor: 'white',
+                                borderRadius: '12px',
+                                overflow: 'hidden',
+                                width: '300px',
+                                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
+                                transition: 'transform 0.3s ease'
+                            }}>
+                                <div style={{
+                                    height: '180px',
+                                    backgroundImage: 'url(https://images.unsplash.com/photo-1587334274527-ba54f0b5a357?ixlib=rb-4.0.3)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center'
+                                }}></div>
+                                <div style={{ padding: '20px' }}>
+                                    <h3 style={{
+                                        margin: '0 0 10px',
+                                        color: '#2c3e50',
+                                        fontSize: '1.5rem'
+                                    }}>Paris</h3>
+                                    <p style={{
+                                        margin: '0 0 15px',
+                                        color: '#7f8c8d',
+                                        fontSize: '0.95rem',
+                                        lineHeight: '1.5'
+                                    }}>The city of light, love, and some of the world's most iconic art and architecture.</p>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <span style={{
+                                            backgroundColor: '#9b59b6',
+                                            color: 'white',
+                                            padding: '5px 10px',
+                                            borderRadius: '20px',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 'bold'
+                                        }}>Romantic</span>
+                                        <span style={{
+                                            color: '#f39c12',
+                                            fontSize: '1.1rem'
+                                        }}>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="far fa-star"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            );
+        }
+
+        // Footer Component with enhanced inline styling
+        function Footer() {
+            return (
+                <footer style={{
+                    backgroundColor: '#2c3e50',
+                    color: 'white',
+                    textAlign: 'center',
+                    padding: '30px',
+                    borderTop: '5px solid #e74c3c'
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        flexWrap: 'wrap',
+                        maxWidth: '1000px',
+                        margin: '0 auto 25px'
+                    }}>
+                        <div style={{ margin: '15px' }}>
+                            <h3 style={{
+                                color: '#3498db',
+                                marginBottom: '15px',
+                                fontSize: '1.3rem'
+                            }}>Explore</h3>
+                            <ul style={{ listStyle: 'none', padding: 0 }}>
+                                <li style={{ margin: '8px 0' }}>Destinations</li>
+                                <li style={{ margin: '8px 0' }}>Travel Guides</li>
+                                <li style={{ margin: '8px 0' }}>Photo Galleries</li>
+                            </ul>
+                        </div>
+                        
+                        <div style={{ margin: '15px' }}>
+                            <h3 style={{
+                                color: '#3498db',
+                                marginBottom: '15px',
+                                fontSize: '1.3rem'
+                            }}>Connect</h3>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                gap: '15px',
+                                fontSize: '1.5rem'
+                            }}>
+                                <i className="fab fa-facebook" style={{ color: '#3b5998' }}></i>
+                                <i className="fab fa-twitter" style={{ color: '#1da1f2' }}></i>
+                                <i className="fab fa-instagram" style={{ color: '#e4405f' }}></i>
+                                <i className="fab fa-pinterest" style={{ color: '#bd081c' }}></i>
+                            </div>
+                        </div>
+                        
+                        <div style={{ margin: '15px' }}>
+                            <h3 style={{
+                                color: '#3498db',
+                                marginBottom: '15px',
+                                fontSize: '1.3rem'
+                            }}>Contact</h3>
+                            <p style={{ margin: '8px 0' }}>info@myfavoritecities.com</p>
+                            <p style={{ margin: '8px 0' }}>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    
+                    <div style={{
+                        borderTop: '1px solid rgba(255,255,255,0.2)',
+                        paddingTop: '20px',
+                        fontSize: '0.9rem',
+                        color: '#95a5a6'
+                    }}>
+                        <p>© 2023 My Favorite Cities. All rights reserved.</p>
+                    </div>
+                </footer>
+            );
+        }
+
+        // App Component that brings everything together
+        function App() {
+            return (
+                <div style={{
+                    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+                    margin: 0,
+                    padding: 0,
+                    minHeight: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}>
+                    <Header />
+                    <UserProfile 
+                        name="Sarah Johnson" 
+                        age="32" 
+                        location="Travel Blogger from San Francisco"
+                        citiesVisited="42"
+                        bio="Adventure seeker and city lover. I've been traveling the world for the past 8 years, documenting my experiences in over 40 countries. My mission is to inspire others to explore our beautiful planet and its diverse urban centers."
+                    />
+                    <MainContent />
+                    <Footer />
+                </div>
+            );
+        }
+
+        // Render the App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
