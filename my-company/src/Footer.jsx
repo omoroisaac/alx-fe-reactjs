@@ -5,9 +5,10 @@ function Footer() {
       color: "#fff",
       textAlign: "center",
       padding: "15px",
-      marginTop: "20px"
+      marginTop: "auto"
     }}>
-      <p>&copy; 2025 My Company. All rights reserved.</p>
+      <p>© 2025 My Company. All rights reserved.</p>
+      <p>Contact us: info@mycompany.com</p>
     </footer>
   );
 }
