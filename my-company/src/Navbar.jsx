@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <nav style={{
-      padding: "10px",
-      backgroundColor: "#333",
+      backgroundColor: "#222",
+      padding: "15px 20px",
       display: "flex",
-      gap: "15px"
+      justifyContent: "center",
+      gap: "30px"
     }}>
-      <Link to="/" style={{ color: "white", textDecoration: "none" }}>Home</Link>
-      <Link to="/about" style={{ color: "white", textDecoration: "none" }}>About</Link>
-      <Link to="/services" style={{ color: "white", textDecoration: "none" }}>Services</Link>
-      <Link to="/contact" style={{ color: "white", textDecoration: "none" }}>Contact</Link>
+      <Link to="/" style={{ color: "#fff", textDecoration: "none", fontWeight: "bold" }}>Home</Link>
+      <Link to="/about" style={{ color: "#fff", textDecoration: "none", fontWeight: "bold" }}>About</Link>
+      <Link to="/services" style={{ color: "#fff", textDecoration: "none", fontWeight: "bold" }}>Services</Link>
+      <Link to="/contact" style={{ color: "#fff", textDecoration: "none", fontWeight: "bold" }}>Contact</Link>
     </nav>
   );
 }

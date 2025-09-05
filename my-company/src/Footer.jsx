@@ -1,11 +1,11 @@
 function Footer() {
   return (
     <footer style={{
-      marginTop: "20px",
-      padding: "10px",
-      backgroundColor: "#333",
-      color: "white",
-      textAlign: "center"
+      backgroundColor: "#222",
+      color: "#fff",
+      textAlign: "center",
+      padding: "15px",
+      marginTop: "20px"
     }}>
       <p>&copy; 2025 My Company. All rights reserved.</p>
     </footer>
