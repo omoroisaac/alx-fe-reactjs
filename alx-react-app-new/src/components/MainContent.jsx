@@ -10,7 +10,7 @@ function MainContent() {
     >
       <h2 style={{ textAlign: 'center' }}>Welcome to the Main Content</h2>
       <p style={{ textAlign: 'center' }}>
-        Explore user profiles and favorite cities here.
+        I love to visit New York, Paris, and Tokyo.
       </p>
     </main>
   );
