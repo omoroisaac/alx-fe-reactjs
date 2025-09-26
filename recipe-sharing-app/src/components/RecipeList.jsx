@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useRecipeStore } from '../store/recipeStore'
 
 
@@ -13,7 +14,9 @@ return (
 <section className="recipe-list">
 {recipes.map((recipe) => (
 <article className="recipe-card" key={recipe.id}>
-<h3>{recipe.title}</h3>
+<h3>
+<Link to={`/recipes/${recipe.id}`}>{recipe.title}</Link>
+</h3>
 <p>{recipe.description}</p>
 </article>
 ))}

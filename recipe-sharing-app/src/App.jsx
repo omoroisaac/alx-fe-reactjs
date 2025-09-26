@@ -1,14 +1,4 @@
 import React, { useEffect } from 'react'
-import { useRecipeStore } from './store/recipeStore'
-import AddRecipeForm from './components/AddRecipeForm'
-import RecipeList from './components/RecipeList'
-
-
-const sampleRecipes = [
-{
-id: 1,
-title: 'Spaghetti Bolognese',
-description: 'Classic Italian pasta with a rich tomato and beef sauce.'
 },
 {
 id: 2,
@@ -19,10 +9,9 @@ description: 'Fluffy pancakes — great with maple syrup and berries.'
 
 
 export default function App() {
-const setRecipes = useRecipeStore(state => state.setRecipes)
+const setRecipes = useRecipeStore((state) => state.setRecipes)
 
 
-// initialize with sample recipes on first mount
 useEffect(() => {
 setRecipes(sampleRecipes)
 }, [setRecipes])
@@ -31,14 +20,30 @@ setRecipes(sampleRecipes)
 return (
 <div className="app-container">
 <header>
-<h1>Recipe Sharing App</h1>
-<p>Built with React + Zustand — add and view recipes.</p>
+<h1>
+<Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+Recipe Sharing App
+</Link>
+</h1>
+<p>Built with React + Zustand — add, view, edit, and delete recipes.</p>
 </header>
 
 
 <main>
+<Routes>
+<Route
+path="/"
+element={(
+<>
 <AddRecipeForm />
 <RecipeList />
+</>
+)}
+/>
+
+
+<Route path="/recipes/:id" element={<RecipeDetails />} />
+</Routes>
 </main>
 
 
