@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
-},
-{
-id: 2,
-title: 'Pancakes',
-description: 'Fluffy pancakes — great with maple syrup and berries.'
-}
-]
+import { Routes, Route } from 'react-router-dom'
+import { useRecipeStore } from './store/recipeStore'
+import AddRecipeForm from './components/AddRecipeForm'
+import RecipeList from './components/RecipeList'
+import RecipeDetails from './components/RecipeDetails'
 
 
 export default function App() {
@@ -13,23 +11,16 @@ const setRecipes = useRecipeStore((state) => state.setRecipes)
 
 
 useEffect(() => {
-setRecipes(sampleRecipes)
+setRecipes([
+{ id: 1, title: 'Spaghetti', description: 'Italian pasta dish' },
+{ id: 2, title: 'Pancakes', description: 'Fluffy breakfast food' }
+])
 }, [setRecipes])
 
 
 return (
-<div className="app-container">
-<header>
-<h1>
-<Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-Recipe Sharing App
-</Link>
-</h1>
-<p>Built with React + Zustand — add, view, edit, and delete recipes.</p>
-</header>
-
-
-<main>
+<div>
+<h1>Recipe Sharing App</h1>
 <Routes>
 <Route
 path="/"
@@ -40,16 +31,8 @@ element={(
 </>
 )}
 />
-
-
-<Route path="/recipes/:id" element={<RecipeDetails />} />
+<Route path="/recipe/:id" element={<RecipeDetails />} />
 </Routes>
-</main>
-
-
-<footer>
-<small>© Recipe Sharing App</small>
-</footer>
 </div>
 )
 }

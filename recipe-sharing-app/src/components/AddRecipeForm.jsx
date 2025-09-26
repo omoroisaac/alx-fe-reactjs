@@ -8,37 +8,27 @@ const [title, setTitle] = useState('')
 const [description, setDescription] = useState('')
 
 
-const handleSubmit = (event) => {
-event.preventDefault()
-const trimmedTitle = title.trim()
-if (!trimmedTitle) return
-
-
-addRecipe({ id: Date.now(), title: trimmedTitle, description: description.trim() })
+const handleSubmit = (e) => {
+e.preventDefault()
+addRecipe({ id: Date.now(), title, description })
 setTitle('')
 setDescription('')
 }
 
 
 return (
-<form className="add-recipe-form" onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit}>
 <input
 type="text"
-placeholder="Recipe title"
 value={title}
 onChange={(e) => setTitle(e.target.value)}
-aria-label="Recipe title"
+placeholder="Title"
 />
-
-
 <textarea
-placeholder="Short description"
 value={description}
 onChange={(e) => setDescription(e.target.value)}
-aria-label="Recipe description"
+placeholder="Description"
 />
-
-
 <button type="submit">Add Recipe</button>
 </form>
 )
