@@ -34,10 +34,12 @@ function HomePage() {
             <div
               key={recipe.id}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
-              onClick={() => handleRecipeClick(recipe.id)}
             >
               {/* Recipe Image */}
-              <div className="h-48 overflow-hidden">
+              <div 
+                className="h-48 overflow-hidden"
+                onClick={() => handleRecipeClick(recipe.id)}
+              >
                 <img
                   src={recipe.image}
                   alt={recipe.title}
@@ -47,13 +49,19 @@ function HomePage() {
               
               {/* Recipe Content */}
               <div className="p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-3">
+                <h2 
+                  className="text-xl font-bold text-gray-800 mb-3 cursor-pointer"
+                  onClick={() => handleRecipeClick(recipe.id)}
+                >
                   {recipe.title}
                 </h2>
                 <p className="text-gray-600 mb-4 line-clamp-3">
                   {recipe.summary}
                 </p>
-                <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+                <button 
+                  onClick={() => handleRecipeClick(recipe.id)}
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+                >
                   View Recipe
                 </button>
               </div>
