@@ -3,36 +3,99 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/400x300/FF6B6B/FFFFFF?text=Spaghetti+Carbonara"
+    "image": "https://via.placeholder.com/800x600/FF6B6B/FFFFFF?text=Spaghetti+Carbonara",
+    "prepTime": 10,
+    "cookTime": 15,
+    "servings": 4,
+    "difficulty": "Easy",
+    "ingredients": [
+      "400g spaghetti",
+      "200g pancetta or guanciale, diced",
+      "4 large eggs",
+      "100g Pecorino Romano cheese, grated",
+      "50g Parmesan cheese, grated",
+      "2 cloves garlic, minced",
+      "Freshly ground black pepper",
+      "Salt to taste",
+      "Fresh parsley, chopped"
+    ],
+    "instructions": [
+      "Bring a large pot of salted water to boil and cook spaghetti according to package instructions.",
+      "While pasta cooks, heat a large pan over medium heat and cook pancetta until crispy.",
+      "In a bowl, whisk together eggs, grated cheeses, and plenty of black pepper.",
+      "Reserve 1 cup of pasta water before draining the spaghetti.",
+      "Add hot spaghetti to the pancetta pan, remove from heat.",
+      "Quickly pour egg mixture over pasta, tossing continuously to create a creamy sauce.",
+      "Add pasta water as needed to reach desired consistency.",
+      "Serve immediately with extra cheese and black pepper."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/400x300/4ECDC4/FFFFFF?text=Chicken+Tikka"
+    "image": "https://via.placeholder.com/800x600/4ECDC4/FFFFFF?text=Chicken+Tikka",
+    "prepTime": 20,
+    "cookTime": 30,
+    "servings": 4,
+    "difficulty": "Medium",
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "200ml yogurt",
+      "2 tbsp tikka masala paste",
+      "1 large onion, finely chopped",
+      "3 cloves garlic, minced",
+      "1 inch ginger, grated",
+      "400g canned tomatoes",
+      "100ml heavy cream",
+      "2 tbsp vegetable oil",
+      "1 tsp garam masala",
+      "Fresh cilantro for garnish",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and 1 tbsp tikka masala paste for 30 minutes.",
+      "Heat oil in a large pan and cook chicken until browned. Remove and set aside.",
+      "In the same pan, sauté onions until golden brown.",
+      "Add garlic and ginger, cook for 1 minute until fragrant.",
+      "Add remaining tikka masala paste and canned tomatoes, simmer for 10 minutes.",
+      "Blend the sauce until smooth using an immersion blender.",
+      "Return chicken to the pan and simmer for 10 minutes.",
+      "Stir in cream and garam masala, heat through.",
+      "Garnish with fresh cilantro and serve with rice or naan."
+    ]
   },
   {
     "id": 3,
     "title": "Vegetable Stir Fry",
     "summary": "Fresh vegetables quickly cooked in a wok with soy sauce and ginger for a healthy meal.",
-    "image": "https://via.placeholder.com/400x300/45B7D1/FFFFFF?text=Veg+Stir+Fry"
-  },
-  {
-    "id": 4,
-    "title": "Chocolate Lava Cake",
-    "summary": "Decadent chocolate cake with a warm, gooey chocolate center that flows when cut.",
-    "image": "https://via.placeholder.com/400x300/96CEB4/FFFFFF?text=Lava+Cake"
-  },
-  {
-    "id": 5,
-    "title": "Greek Salad",
-    "summary": "Fresh cucumbers, tomatoes, olives, and feta cheese with olive oil dressing.",
-    "image": "https://via.placeholder.com/400x300/FECA57/FFFFFF?text=Greek+Salad"
-  },
-  {
-    "id": 6,
-    "title": "Beef Tacos",
-    "summary": "Seasoned ground beef in crispy taco shells with lettuce, cheese, and salsa.",
-    "image": "https://via.placeholder.com/400x300/FF9FF3/FFFFFF?text=Beef+Tacos"
+    "image": "https://via.placeholder.com/800x600/45B7D1/FFFFFF?text=Veg+Stir+Fry",
+    "prepTime": 15,
+    "cookTime": 10,
+    "servings": 2,
+    "difficulty": "Easy",
+    "ingredients": [
+      "2 cups mixed vegetables (bell peppers, broccoli, carrots, snow peas)",
+      "2 cloves garlic, minced",
+      "1 tbsp fresh ginger, grated",
+      "3 tbsp soy sauce",
+      "1 tbsp sesame oil",
+      "1 tbsp vegetable oil",
+      "1 tsp rice vinegar",
+      "1 tsp honey",
+      "Sesame seeds for garnish",
+      "Spring onions, sliced"
+    ],
+    "instructions": [
+      "Prepare all vegetables by washing and cutting into uniform pieces.",
+      "Heat vegetable oil in a wok or large pan over high heat.",
+      "Add garlic and ginger, stir for 30 seconds until fragrant.",
+      "Add harder vegetables first (carrots, broccoli), stir fry for 2 minutes.",
+      "Add remaining vegetables and stir fry for 3-4 minutes until crisp-tender.",
+      "In a small bowl, mix soy sauce, sesame oil, rice vinegar, and honey.",
+      "Pour sauce over vegetables and toss to coat evenly.",
+      "Cook for 1 more minute until sauce thickens slightly.",
+      "Garnish with sesame seeds and spring onions before serving."
+    ]
   }
 ]
