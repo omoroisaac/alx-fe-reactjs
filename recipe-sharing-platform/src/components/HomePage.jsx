@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import recipeData from '../data.json';
 
 function HomePage() {
   const [recipes, setRecipes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setRecipes(recipeData);
   }, []);
 
   const handleRecipeClick = (recipeId) => {
-    // Using window.location for navigation without React Router
-    window.location.href = `/recipe/${recipeId}`;
+    navigate(`/recipe/${recipeId}`);
+  };
+
+  const handleAddRecipe = () => {
+    navigate('/add-recipe');
   };
 
   return (
@@ -21,10 +26,16 @@ function HomePage() {
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             Delicious Recipes
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
             Discover and share amazing recipes from around the world. 
             Find your next favorite meal today!
           </p>
+          <button
+            onClick={handleAddRecipe}
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+          >
+            + Add New Recipe
+          </button>
         </div>
 
         {/* Recipes Grid */}
