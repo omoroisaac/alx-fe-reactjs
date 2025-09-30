@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import recipeData from '../data.json';
 
 function HomePage() {
   const [recipes, setRecipes] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setRecipes(recipeData);
   }, []);
 
   const handleRecipeClick = (recipeId) => {
-    navigate(`/recipe/${recipeId}`);
+    // Using window.location for navigation without React Router
+    window.location.href = `/recipe/${recipeId}`;
   };
 
   return (
@@ -33,17 +32,15 @@ function HomePage() {
           {recipes.map((recipe) => (
             <div
               key={recipe.id}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               {/* Recipe Image */}
-              <div 
-                className="h-48 overflow-hidden"
-                onClick={() => handleRecipeClick(recipe.id)}
-              >
+              <div className="h-48 overflow-hidden">
                 <img
                   src={recipe.image}
                   alt={recipe.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover cursor-pointer"
+                  onClick={() => handleRecipeClick(recipe.id)}
                 />
               </div>
               
