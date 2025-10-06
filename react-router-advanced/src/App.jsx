@@ -1,6 +1,5 @@
-// src/App.jsx
 import React, { useState } from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import ProfileDetails from "./pages/ProfileDetails.jsx";
@@ -21,8 +20,10 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
+  const [showPosts, setShowPosts] = useState(true);
+
   return (
-    <div>
+    <BrowserRouter>
       <nav>
         <Link to="/">Home</Link> |{" "}
         <Link to="/profile">Profile</Link> |{" "}
@@ -52,7 +53,7 @@ function App() {
 
         <Route path="/login" element={<Login auth={fakeAuth} />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
 
