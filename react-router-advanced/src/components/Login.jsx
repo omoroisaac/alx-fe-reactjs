@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./ProtectedRoute.jsx";
 
-export default function Login({ auth }) {
+export default function Login() {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const handleLogin = () => {
     auth.login(() => navigate("/profile"));
