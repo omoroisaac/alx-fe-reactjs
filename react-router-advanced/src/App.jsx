@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import Profile from "./assets/Profile.jsx";
+import Profile from "./components/Profile.jsx";
 import ProfileDetails from "./components/ProfileDetails.jsx";
 import ProfileSettings from "./components/ProfileSettings.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
