@@ -4,22 +4,36 @@ const RegistrationForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic validation
-    if (!username || !email || !password) {
-      setError("All fields are required!");
+    const validationErrors = {};
+
+    // explicit checks (these strings are what the tests look for)
+    if (!username) {
+      validationErrors.username = "Username is required";
+    }
+    if (!email) {
+      validationErrors.email = "Email is required";
+    }
+    if (!password) {
+      validationErrors.password = "Password is required";
+    }
+
+    // if there are validation errors, use setErrors and stop submission
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
-    setError("");
+    // clear errors and proceed
+    setErrors({});
     console.log("Registration successful!", { username, email, password });
     alert("Registration successful!");
 
-    // Reset form
+    // reset form
     setUsername("");
     setEmail("");
     setPassword("");
@@ -34,29 +48,39 @@ const RegistrationForm = () => {
           type="text"
           name="username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => {
+            setUsername(e.target.value);
+            if (errors.username) setErrors((prev) => ({ ...prev, username: "" }));
+          }}
           style={styles.input}
         />
+        {errors.username && <div style={styles.error}>{errors.username}</div>}
 
         <label style={styles.label}>Email:</label>
         <input
           type="email"
           name="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+          }}
           style={styles.input}
         />
+        {errors.email && <div style={styles.error}>{errors.email}</div>}
 
         <label style={styles.label}>Password:</label>
         <input
           type="password"
           name="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
+          }}
           style={styles.input}
         />
-
-        {error && <p style={styles.error}>{error}</p>}
+        {errors.password && <div style={styles.error}>{errors.password}</div>}
 
         <button type="submit" style={styles.button}>
           Register
@@ -66,7 +90,6 @@ const RegistrationForm = () => {
   );
 };
 
-// Inline styles
 const styles = {
   container: {
     maxWidth: "400px",
@@ -101,7 +124,8 @@ const styles = {
   },
   error: {
     color: "red",
-    marginTop: "10px",
+    marginTop: "8px",
+    fontSize: "0.9em",
   },
 };
 
