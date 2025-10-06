@@ -1,4 +1,3 @@
-// src/components/PostsComponent.jsx
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -9,10 +8,19 @@ const fetchPosts = async () => {
 };
 
 function PostsComponent() {
-  const { data, error, isLoading, isError, refetch, isFetching } = useQuery({
+  const {
+    data,
+    error,
+    isLoading,
+    isError,
+    refetch,
+    isFetching,
+  } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 60000, // 1 minute cache
+    staleTime: 60000, // 1 minute: data considered fresh
+    cacheTime: 300000, // 5 minutes: unused data stays in cache
+    keepPreviousData: true, // keep old data while refetching
     refetchOnWindowFocus: false,
   });
 
