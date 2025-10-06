@@ -1,20 +1,9 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Profile from "./components/Profile.jsx";
 import BlogPost from "./components/BlogPost.jsx";
 import Login from "./components/Login.jsx";
-
-// Simulated authentication
-const fakeAuth = {
-  isAuthenticated: false,
-  login(cb) { this.isAuthenticated = true; cb(); },
-  logout(cb) { this.isAuthenticated = false; cb(); }
-};
-
-// Protected Route wrapper
-function ProtectedRoute({ children }) {
-  return fakeAuth.isAuthenticated ? children : <Navigate to="/login" />;
-}
+import ProtectedRoute, { fakeAuth } from "./components/ProtectedRoute.jsx";
 
 function App() {
   return (
@@ -29,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<h2>Home Page</h2>} />
 
-        {/* Protected Route */}
+        {/* Use ProtectedRoute component */}
         <Route
           path="/profile/*"
           element={
