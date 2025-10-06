@@ -1,13 +1,16 @@
 import React from "react";
-import FormikForm from "./components/formikForm.jsx";
+import RegistrationForm from "./components/RegistrationForm.jsx";
+import FormikForm from "./components/formikForm.js";
 
-const App = () => {
+function App() {
   return (
     <div>
-      <h1>Welcome to the User Portal</h1>
+      <h1>React Form Handling</h1>
+      <RegistrationForm />
+      <hr />
       <FormikForm />
     </div>
   );
-};
+}
 
 export default App;
