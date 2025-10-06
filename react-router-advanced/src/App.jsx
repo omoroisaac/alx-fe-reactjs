@@ -1,27 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-import Home from "./pages/Home.jsx";
 import Profile from "./components/Profile.jsx";
-import ProfileDetails from "./components/ProfileDetails.jsx";
-import ProfileSettings from "./components/ProfileSettings.jsx";
-import BlogPost from "./pages/BlogPost.jsx";
-import Login from "./pages/Login.jsx";
+import BlogPost from "./components/BlogPost.jsx";
+import Login from "./components/Login.jsx";
 
-// Simulated authentication state
+// Simulated authentication
 const fakeAuth = {
   isAuthenticated: false,
   login(cb) { this.isAuthenticated = true; cb(); },
   logout(cb) { this.isAuthenticated = false; cb(); }
 };
 
-// ProtectedRoute component
+// Protected Route wrapper
 function ProtectedRoute({ children }) {
   return fakeAuth.isAuthenticated ? children : <Navigate to="/login" />;
 }
 
 function App() {
-  const [showPosts, setShowPosts] = useState(true);
-
   return (
     <BrowserRouter>
       <nav>
@@ -32,9 +27,7 @@ function App() {
       </nav>
       <hr />
       <Routes>
-        <Route path="/" element={<Home />} />
-
-        {/* Protected Route */}
+        <Route path="/" element={<h2>Home Page</h2>} />
         <Route
           path="/profile/*"
           element={
@@ -42,15 +35,8 @@ function App() {
               <Profile />
             </ProtectedRoute>
           }
-        >
-          {/* Nested Routes */}
-          <Route path="details" element={<ProfileDetails />} />
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
-
-        {/* Dynamic Route */}
+        />
         <Route path="/blog/:postId" element={<BlogPost />} />
-
         <Route path="/login" element={<Login auth={fakeAuth} />} />
       </Routes>
     </BrowserRouter>
