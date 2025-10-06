@@ -22,12 +22,14 @@ function App() {
       <nav>
         <Link to="/">Home</Link> |{" "}
         <Link to="/profile">Profile</Link> |{" "}
-        <Link to="/blog/123">Blog Post 123</Link> |{" "}
+        <Link to="/blog/1">Blog Post 1</Link> |{" "}
         <Link to="/login">Login</Link>
       </nav>
       <hr />
       <Routes>
         <Route path="/" element={<h2>Home Page</h2>} />
+
+        {/* Protected Route */}
         <Route
           path="/profile/*"
           element={
@@ -36,7 +38,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/blog/:postId" element={<BlogPost />} />
+
+        {/* Dynamic Route */}
+        <Route path="/blog/:id" element={<BlogPost />} />
+
         <Route path="/login" element={<Login auth={fakeAuth} />} />
       </Routes>
     </BrowserRouter>
