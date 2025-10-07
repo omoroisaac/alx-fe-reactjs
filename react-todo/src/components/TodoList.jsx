@@ -5,6 +5,19 @@ function TodoList() {
     { id: 1, text: "Learn React", completed: false },
     { id: 2, text: "Build a Todo App", completed: true },
   ]);
+  const [newTodo, setNewTodo] = useState("");
+
+  const addTodo = (e) => {
+    e.preventDefault();
+    if (newTodo.trim() === "") return;
+    const todo = {
+      id: Date.now(),
+      text: newTodo,
+      completed: false,
+    };
+    setTodos([...todos, todo]);
+    setNewTodo("");
+  };
 
   const toggleTodo = (id) => {
     setTodos(
@@ -20,7 +33,18 @@ function TodoList() {
 
   return (
     <div>
-      <h2>Todo List</h2>
+      <h1>Todo List</h1>
+
+      <form onSubmit={addTodo}>
+        <input
+          type="text"
+          placeholder="Add new todo"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+        />
+        <button type="submit">Add</button>
+      </form>
+
       <ul>
         {todos.map((todo) => (
           <li
@@ -30,9 +54,18 @@ function TodoList() {
               textDecoration: todo.completed ? "line-through" : "none",
               cursor: "pointer",
             }}
+            data-testid="todo-item"
           >
             {todo.text}
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteTodo(todo.id);
+              }}
+              data-testid="delete-btn"
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
@@ -40,4 +73,4 @@ function TodoList() {
   );
 }
 
-export default TodoList; // ✅ <-- Default export added
+export default TodoList;

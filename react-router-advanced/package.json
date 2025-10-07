@@ -14,6 +14,13 @@
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.3"
   },
+  "jest": {
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.[tj]sx?$": "babel-jest"
+  },
+  "moduleFileExtensions": ["js", "jsx"]
+},
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@types/react": "^19.1.16",
