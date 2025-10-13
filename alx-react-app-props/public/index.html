@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Context API Implementation Guide</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .component-box {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        .explanation {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        .demo-area {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed #bbb;
+            margin-top: 20px;
+        }
+        .note {
+            background-color: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .before, .after {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .before {
+            background-color: #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+        }
+        .after {
+            background-color: #55efc4;
+            border-left: 4px solid #00b894;
+        }
+        .step {
+            background-color: #dfe6e9;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #636e72;
+        }
+    </style>
+</head>
+<body>
+    <h1>React Context API Implementation Guide</h1>
+    
+    <div class="explanation">
+        <p>This guide demonstrates how to refactor a React application from <strong>prop drilling</strong> to using the <strong>Context API</strong>. The Context API allows you to share data across multiple components without having to pass props through every level of the component tree.</p>
+    </div>
+
+    <div class="comparison">
+        <div class="before">
+            <h3>❌ Before: Prop Drilling</h3>
+            <p>Data is passed through multiple components that don't need it, just to reach a deeply nested component.</p>
+        </div>
+        <div class="after">
+            <h3>✅ After: Context API</h3>
+            <p>Data is available directly to any component that needs it, without passing through intermediate components.</p>
+        </div>
+    </div>
+    
+    <div class="step">
+        <h2>Step 1: Create UserContext</h2>
+    </div>
+    
+    <div class="component-box">
+        <h3>UserContext.js</h3>
+        
+        <div class="code-block">
+// UserContext.js
+import { createContext } from 'react';
+
+// Create a Context object
+const UserContext = createContext();
+
+// Export the Context so it can be used by other components
+export default UserContext;
+        </div>
+        
+        <div class="explanation">
+            <p><strong>Explanation:</strong> We create a Context object using <code>React.createContext()</code>. This creates a context that we can use to share data across components. The context includes a Provider component that we'll use to wrap our component tree.</p>
+        </div>
+    </div>
+    
+    <div class="step">
+        <h2>Step 2: Provide Context in App Component</h2>
+    </div>
+    
+    <div class="component-box">
+        <h3>App.jsx (Refactored)</h3>
+        
+        <div class="code-block">
+// App.jsx
+import ProfilePage from './ProfilePage';
+import UserContext from './UserContext';
+
+function App() {
+  const userData = { 
+    name: "Jane Doe", 
+    email: "jane.doe@example.com",
+    role: "Developer",
+    joinDate: "2023-01-15"
+  };
+
+  return (
+    &lt;UserContext.Provider value={userData}&gt;
+      &lt;ProfilePage /&gt;
+    &lt;/UserContext.Provider&gt;
+  );
+}
+
+export default App;
+        </div>
+        
+        <div class="explanation">
+            <p><strong>Explanation:</strong> We wrap our component tree with <code>UserContext.Provider</code> and pass the <code>userData</code> as the value prop. This makes the userData available to any component in the tree that consumes this context.</p>
+        </div>
+    </div>
+    
+    <div class="step">
+        <h2>Step 3: Consume Context in UserDetails Component</h2>
+    </div>
+    
+    <div class="component-box">
+        <h3>UserDetails.jsx (Refactored)</h3>
+        
+        <div class="code-block">
+// UserDetails.jsx
+import { useContext } from 'react';
+import UserContext from './UserContext';
+
+function UserDetails() {
+  // Consume the context using useContext hook
+  const userData = useContext(UserContext);
+
+  return (
+    &lt;div style={{ 
+      border: '2px solid #3498db', 
+      padding: '20px', 
+      borderRadius: '8px',
+      backgroundColor: '#f8f9fa',
+      margin: '20px 0'
+    }}&gt;
+      &lt;h3 style={{ color: '#2c3e50', marginTop: 0 }}&gt;User Details (Using Context)&lt;/h3&gt;
+      &lt;p style={{ margin: '8px 0' }}&gt;
+        &lt;strong&gt;Name:&lt;/strong&gt; {userData.name}
+      &lt;/p&gt;
+      &lt;p style={{ margin: '8px 0' }}&gt;
+        &lt;strong&gt;Email:&lt;/strong&gt; {userData.email}
+      &lt;/p&gt;
+      &lt;p style={{ margin: '8px 0' }}&gt;
+        &lt;strong&gt;Role:&lt;/strong&gt; {userData.role}
+      &lt;/p&gt;
+      &lt;p style={{ margin: '8px 0' }}&gt;
+        &lt;strong&gt;Join Date:&lt;/strong&gt; {userData.joinDate}
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default UserDetails;
+        </div>
+        
+        <div class="explanation">
+            <p><strong>Explanation:</strong> Instead of receiving <code>userData</code> as a prop, we use the <code>useContext</code> hook to directly access the context value. This eliminates the need for prop drilling.</p>
+        </div>
+    </div>
+    
+    <div class="step">
+        <h2>Step 4: Remove Unused Props from Intermediate Components</h2>
+    </div>
+    
+    <div class="component-box">
+        <h3>ProfilePage.jsx (Refactored)</h3>
+        
+        <div class="code-block">
+// ProfilePage.jsx
+import UserInfo from './UserInfo';
+
+function ProfilePage() {
+  return (
+    &lt;div style={{ padding: '20px' }}&gt;
+      &lt;h2 style={{ color: '#2980b9' }}&gt;Profile Page&lt;/h2&gt;
+      &lt;UserInfo /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default ProfilePage;
+        </div>
+        
+        <div class="component-box">
+            <h3>UserInfo.jsx (Refactored)</h3>
+            
+            <div class="code-block">
+// UserInfo.jsx
+import UserDetails from './UserDetails';
+
+function UserInfo() {
+  return (
+    &lt;div style={{ 
+      border: '1px dashed #bdc3c7', 
+      padding: '15px', 
+      margin: '10px 0',
+      backgroundColor: '#ecf0f1'
+    }}&gt;
+      &lt;h4 style={{ color: '#7f8c8d', marginTop: 0 }}&gt;User Info Component&lt;/h4&gt;
+      &lt;p&gt;This component no longer needs to receive or pass userData props!&lt;/p&gt;
+      &lt;UserDetails /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default UserInfo;
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <p><strong>Explanation:</strong> The intermediate components (<code>ProfilePage</code> and <code>UserInfo</code>) no longer need to receive or pass the <code>userData</code> prop. They become cleaner and more focused on their actual responsibilities.</p>
+        </div>
+    </div>
+    
+    <div class="note">
+        <p><strong>Benefits of Using Context API:</strong></p>
+        <ul>
+            <li><strong>Cleaner Code:</strong> Eliminates prop drilling through components that don't use the data</li>
+            <li><strong>Better Maintainability:</strong> Easier to add or modify shared data</li>
+            <li><strong>Reduced Coupling:</strong> Components don't need to know about data they don't use</li>
+            <li><strong>Easier Testing:</strong> Components can be tested in isolation with mocked context</li>
+        </ul>
+    </div>
+    
+    <h2>Live Demo</h2>
+    <div id="root" class="demo-area">
+        <!-- React will render here -->
+    </div>
+
+    <script type="text/babel">
+        // Step 1: Create UserContext
+        const UserContext = React.createContext();
+
+        // Step 2: UserDetails Component (Consumes Context)
+        function UserDetails() {
+            const userData = React.useContext(UserContext);
+
+            return (
+                <div style={{ 
+                    border: '2px solid #3498db', 
+                    padding: '20px', 
+                    borderRadius: '8px',
+                    backgroundColor: '#f8f9fa',
+                    margin: '20px 0'
+                }}>
+                    <h3 style={{ color: '#2c3e50', marginTop: 0 }}>User Details (Using Context)</h3>
+                    <p style={{ margin: '8px 0' }}>
+                        <strong>Name:</strong> {userData.name}
+                    </p>
+                    <p style={{ margin: '8px 0' }}>
+                        <strong>Email:</strong> {userData.email}
+                    </p>
+                    <p style={{ margin: '8px 0' }}>
+                        <strong>Role:</strong> {userData.role}
+                    </p>
+                    <p style={{ margin: '8px 0' }}>
+                        <strong>Join Date:</strong> {userData.joinDate}
+                    </p>
+                </div>
+            );
+        }
+
+        // Step 3: UserInfo Component (No longer needs props)
+        function UserInfo() {
+            return (
+                <div style={{ 
+                    border: '1px dashed #bdc3c7', 
+                    padding: '15px', 
+                    margin: '10px 0',
+                    backgroundColor: '#ecf0f1'
+                }}>
+                    <h4 style={{ color: '#7f8c8d', marginTop: 0 }}>User Info Component</h4>
+                    <p>This component no longer needs to receive or pass userData props!</p>
+                    <UserDetails />
+                </div>
+            );
+        }
+
+        // Step 4: ProfilePage Component (No longer needs props)
+        function ProfilePage() {
+            return (
+                <div style={{ padding: '20px' }}>
+                    <h2 style={{ color: '#2980b9' }}>Profile Page</h2>
+                    <UserInfo />
+                </div>
+            );
+        }
+
+        // Step 5: App Component (Provides Context)
+        function App() {
+            const userData = { 
+                name: "Jane Doe", 
+                email: "jane.doe@example.com",
+                role: "Developer",
+                joinDate: "2023-01-15"
+            };
+
+            return (
+                <UserContext.Provider value={userData}>
+                    <div>
+                        <h1 style={{ textAlign: 'center', color: '#2c3e50' }}>
+                            React Context API Demo
+                        </h1>
+                        <ProfilePage />
+                        
+                        {/* Additional component showing context can be consumed anywhere */}
+                        <div style={{ 
+                            margin: '20px', 
+                            padding: '15px', 
+                            backgroundColor: '#e8f6f3',
+                            border: '1px solid #76d7c4',
+                            borderRadius: '5px'
+                        }}>
+                            <h3>Another Component Using Context</h3>
+                            <p>This component also consumes the context directly:</p>
+                            <UserDetails />
+                        </div>
+                    </div>
+                </UserContext.Provider>
+            );
+        }
+
+        // Render the App
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
