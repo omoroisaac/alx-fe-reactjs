@@ -23,7 +23,12 @@ const Search = () => {
       const data = await fetchUserData(username);
       setUserData(data);
     } catch (err) {
-      setError(err.message);
+      // Use the exact error message required by tests
+      if (err.message === 'User not found') {
+        setError('Looks like we cant find the user');
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -43,7 +48,7 @@ const Search = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter GitHub username (e.g., octocat)"
+            placeholder="Enter GitHub username"
             className="search-input"
             disabled={loading}
           />
@@ -61,17 +66,14 @@ const Search = () => {
       {loading && (
         <div className="state-message loading">
           <div className="spinner"></div>
-          <p>Loading user data...</p>
+          <p>Loading...</p>
         </div>
       )}
 
       {/* Error State */}
       {error && !loading && (
         <div className="state-message error">
-          <p>🚫 {error}</p>
-          {error === 'User not found' && (
-            <p className="error-hint">Looks like we can't find the user. Please check the username and try again.</p>
-          )}
+          <p>{error}</p>
           <button onClick={handleReset} className="reset-button">
             Try Again
           </button>
@@ -111,27 +113,6 @@ const Search = () => {
               <strong>{userData.following}</strong>
               <span>Following</span>
             </div>
-          </div>
-
-          <div className="user-details">
-            {userData.location && (
-              <p className="detail">📍 {userData.location}</p>
-            )}
-            {userData.company && (
-              <p className="detail">🏢 {userData.company}</p>
-            )}
-            {userData.blog && (
-              <p className="detail">
-                🌐 <a href={userData.blog} target="_blank" rel="noopener noreferrer">
-                  {userData.blog}
-                </a>
-              </p>
-            )}
-            {userData.twitter_username && (
-              <p className="detail">
-                🐦 @{userData.twitter_username}
-              </p>
-            )}
           </div>
 
           <div className="user-actions">
