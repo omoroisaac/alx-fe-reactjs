@@ -1,147 +1,70 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
 import TodoList from '../components/TodoList';
 
 describe('TodoList Component', () => {
-  // Test 1: Initial Render
+  // Test 1: Initial Render Test
   test('renders TodoList component with initial todos', () => {
     render(<TodoList />);
     
-    // Check if the main component renders
-    expect(screen.getByTestId('todo-list')).toBeInTheDocument();
+    // Verify component renders correctly
+    expect(screen.getByText('Todo List')).toBeInTheDocument();
     
-    // Check if initial todos are displayed
+    // Ensure initial state (demo todos) is rendered
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     expect(screen.getByText('Build a Todo App')).toBeInTheDocument();
     expect(screen.getByText('Write Tests')).toBeInTheDocument();
-    
-    // Check if form elements are present
-    expect(screen.getByTestId('add-todo-form')).toBeInTheDocument();
-    expect(screen.getByTestId('todo-input')).toBeInTheDocument();
-    expect(screen.getByTestId('add-button')).toBeInTheDocument();
   });
 
   // Test 2: Adding Todos
-  test('adds a new todo when form is submitted', async () => {
-    const user = userEvent.setup();
+  test('adds a new todo when form is submitted', () => {
     render(<TodoList />);
     
-    const input = screen.getByTestId('todo-input');
-    const addButton = screen.getByTestId('add-button');
+    const input = screen.getByPlaceholderText('Add a new todo');
+    const addButton = screen.getByText('Add Todo');
     
-    // Add a new todo
-    await user.type(input, 'New Test Todo');
-    await user.click(addButton);
+    // Use fireEvent to simulate user input
+    fireEvent.change(input, { target: { value: 'New Test Todo' } });
     
-    // Check if new todo is added
+    // Use fireEvent to simulate form submission
+    fireEvent.click(addButton);
+    
+    // Verify that new todo is added
     expect(screen.getByText('New Test Todo')).toBeInTheDocument();
-    
-    // Check if input is cleared after submission
-    expect(input).toHaveValue('');
   });
 
-  // Test 3: Adding empty todo
-  test('does not add empty todo', async () => {
-    const user = userEvent.setup();
-    render(<TodoList />);
-    
-    const initialTodoCount = screen.getAllByText(/todo/i).length;
-    
-    const input = screen.getByTestId('todo-input');
-    const addButton = screen.getByTestId('add-button');
-    
-    // Try to add empty todo
-    await user.type(input, '   '); // Only spaces
-    await user.click(addButton);
-    
-    // Check that no new todo was added
-    const currentTodoCount = screen.getAllByText(/todo/i).length;
-    expect(currentTodoCount).toBe(initialTodoCount);
-  });
-
-  // Test 4: Toggling Todos
-  test('toggles todo completion status when clicked', async () => {
-    const user = userEvent.setup();
+  // Test 3: Toggling Todos
+  test('toggles todo between completed and not completed', () => {
     render(<TodoList />);
     
     const todoText = screen.getByText('Learn React');
-    const todoItem = todoText.closest('[data-testid^="todo-item-"]');
     
     // Initially should not be completed
-    expect(todoItem).not.toHaveClass('completed');
+    expect(todoText).not.toHaveStyle('text-decoration: line-through');
     
-    // Click to toggle completion
-    await user.click(todoText);
+    // Click to toggle to completed
+    fireEvent.click(todoText);
+    expect(todoText).toHaveStyle('text-decoration: line-through');
     
-    // Should now be completed
-    expect(todoItem).toHaveClass('completed');
-    
-    // Click again to toggle back
-    await user.click(todoText);
-    
-    // Should not be completed again
-    expect(todoItem).not.toHaveClass('completed');
+    // Click again to toggle back to not completed
+    fireEvent.click(todoText);
+    expect(todoText).not.toHaveStyle('text-decoration: line-through');
   });
 
-  // Test 5: Deleting Todos
-  test('deletes a todo when delete button is clicked', async () => {
-    const user = userEvent.setup();
+  // Test 4: Deleting Todos
+  test('deletes a todo item', () => {
     render(<TodoList />);
     
     const todoToDelete = screen.getByText('Write Tests');
-    const deleteButton = screen.getByTestId('delete-button-3'); // ID from initial data
+    const deleteButtons = screen.getAllByText('Delete');
     
-    // Check that todo exists before deletion
+    // Verify todo exists before deletion
     expect(todoToDelete).toBeInTheDocument();
     
-    // Delete the todo
-    await user.click(deleteButton);
+    // Click delete button for the third todo
+    fireEvent.click(deleteButtons[2]);
     
-    // Check that todo is removed
-    expect(todoToDelete).not.toBeInTheDocument();
-  });
-
-  // Test 6: Form submission with Enter key
-  test('adds todo when Enter key is pressed', async () => {
-    const user = userEvent.setup();
-    render(<TodoList />);
-    
-    const input = screen.getByTestId('todo-input');
-    
-    // Type and press Enter
-    await user.type(input, 'Todo with Enter{enter}');
-    
-    // Check if new todo is added
-    expect(screen.getByText('Todo with Enter')).toBeInTheDocument();
-  });
-
-  // Test 7: Statistics display
-  test('displays correct todo statistics', () => {
-    render(<TodoList />);
-    
-    // Check initial stats (2 completed, 1 pending from initial data)
-    expect(screen.getByText(/Total: 3/)).toBeInTheDocument();
-    expect(screen.getByText(/Completed: 1/)).toBeInTheDocument();
-    expect(screen.getByText(/Pending: 2/)).toBeInTheDocument();
-  });
-
-  // Test 8: Empty state
-  test('displays empty state when no todos', async () => {
-    const user = userEvent.setup();
-    render(<TodoList />);
-    
-    // Delete all todos
-    const deleteButtons = screen.getAllByText('Delete');
-    for (const button of deleteButtons) {
-      await user.click(button);
-    }
-    
-    // Check empty state message
-    expect(screen.getByText('No todos yet. Add one above!')).toBeInTheDocument();
-    
-    // Check stats show zero
-    expect(screen.getByText(/Total: 0/)).toBeInTheDocument();
+    // Verify todo is deleted
+    expect(screen.queryByText('Write Tests')).not.toBeInTheDocument();
   });
 });

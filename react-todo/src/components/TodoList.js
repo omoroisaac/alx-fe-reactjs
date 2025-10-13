@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 
-// Initial todos array (static as required)
-const initialTodos = [
-  { id: 1, text: 'Learn React', completed: false },
-  { id: 2, text: 'Build a Todo App', completed: true },
-  { id: 3, text: 'Write Tests', completed: false }
-];
-
 const TodoList = () => {
-  const [todos, setTodos] = useState(initialTodos);
+  // Initialize with static array as required
+  const [todos, setTodos] = useState([
+    { id: 1, text: 'Learn React', completed: false },
+    { id: 2, text: 'Build a Todo App', completed: true },
+    { id: 3, text: 'Write Tests', completed: false }
+  ]);
   const [inputValue, setInputValue] = useState('');
 
-  // Add todo function
+  // Add todo method
   const addTodo = (text) => {
-    if (text.trim() !== '') {
+    if (text.trim()) {
       const newTodo = {
         id: Date.now(),
         text: text.trim(),
@@ -24,78 +22,61 @@ const TodoList = () => {
     }
   };
 
-  // Toggle todo completion
+  // Toggle todo method
   const toggleTodo = (id) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
-  // Delete todo function
+  // Delete todo method
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     addTodo(inputValue);
   };
 
   return (
-    <div className="todo-list">
+    <div>
       <h1>Todo List</h1>
       
-      {/* Add Todo Form */}
-      <form onSubmit={handleSubmit} className="add-todo-form">
+      {/* AddTodoForm integrated as required */}
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Add a new todo..."
-          className="todo-input"
+          placeholder="Add a new todo"
         />
-        <button type="submit" className="add-button">
-          Add Todo
-        </button>
+        <button type="submit">Add Todo</button>
       </form>
 
-      {/* Todo Items List */}
-      <div className="todos-container">
-        {todos.length === 0 ? (
-          <p>No todos available</p>
-        ) : (
-          todos.map(todo => (
-            <div 
-              key={todo.id} 
-              className={`todo-item ${todo.completed ? 'completed' : ''}`}
+      {/* Display list of todos */}
+      <div>
+        {todos.map(todo => (
+          <div key={todo.id} style={{ 
+            textDecoration: todo.completed ? 'line-through' : 'none',
+            margin: '10px 0',
+            padding: '10px',
+            border: '1px solid #ccc'
+          }}>
+            <span 
+              onClick={() => toggleTodo(todo.id)}
+              style={{ cursor: 'pointer' }}
             >
-              <span 
-                onClick={() => toggleTodo(todo.id)}
-                className="todo-text"
-                style={{ 
-                  textDecoration: todo.completed ? 'line-through' : 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                {todo.text}
-              </span>
-              <button 
-                onClick={() => deleteTodo(todo.id)}
-                className="delete-button"
-              >
-                Delete
-              </button>
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* Todo Statistics */}
-      <div className="todo-stats">
-        Total: {todos.length} | 
-        Completed: {todos.filter(t => t.completed).length} | 
-        Pending: {todos.filter(t => !t.completed).length}
+              {todo.text}
+            </span>
+            <button 
+              onClick={() => deleteTodo(todo.id)}
+              style={{ marginLeft: '10px' }}
+            >
+              Delete
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
