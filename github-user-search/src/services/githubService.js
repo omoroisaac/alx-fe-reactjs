@@ -2,22 +2,12 @@ import axios from 'axios';
 
 const GITHUB_API_BASE = 'https://api.github.com';
 
-// Create axios instance for GitHub API
-const githubAPI = axios.create({
-  baseURL: GITHUB_API_BASE,
-  headers: {
-    'Accept': 'application/vnd.github.v3+json',
-  },
-});
-
 /**
  * Advanced search for GitHub users with multiple criteria
  * @param {Object} searchParams - Search parameters
  * @param {string} searchParams.username - Username to search for
  * @param {string} searchParams.location - Location filter
  * @param {number} searchParams.minRepos - Minimum repositories
- * @param {number} searchParams.minFollowers - Minimum followers
- * @param {string} searchParams.language - Programming language
  * @param {number} page - Page number for pagination
  * @param {number} perPage - Results per page
  * @returns {Promise} - Search results from GitHub API
@@ -39,28 +29,18 @@ export const advancedUserSearch = async (searchParams, page = 1, perPage = 10) =
       query += `repos:>=${searchParams.minRepos} `;
     }
 
-    if (searchParams.minFollowers) {
-      query += `followers:>=${searchParams.minFollowers} `;
-    }
-
-    if (searchParams.language) {
-      query += `language:${searchParams.language} `;
-    }
-
-    // Remove trailing space and encode the query
+    // Remove trailing space
     query = query.trim();
 
     if (!query) {
       throw new Error('Please provide at least one search criteria');
     }
 
-    const response = await githubAPI.get('/search/users', {
+    const response = await axios.get('https://api.github.com/search/users', {
       params: {
         q: query,
         page: page,
         per_page: perPage,
-        sort: 'followers',
-        order: 'desc',
       },
     });
 
@@ -89,7 +69,7 @@ export const advancedUserSearch = async (searchParams, page = 1, perPage = 10) =
  */
 export const getUserDetails = async (username) => {
   try {
-    const response = await githubAPI.get(`/users/${username}`);
+    const response = await axios.get(`https://api.github.com/users/${username}`);
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
@@ -112,5 +92,3 @@ export const getUsersDetailsBatch = async (usernames) => {
     throw new Error('Failed to fetch users details');
   }
 };
-
-export default githubAPI;
