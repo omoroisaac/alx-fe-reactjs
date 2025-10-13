@@ -40,8 +40,6 @@ function Navbar() {
               borderRadius: '4px',
               transition: 'background-color 0.3s'
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#34495e'}
-            onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             Home
           </Link>
@@ -54,8 +52,6 @@ function Navbar() {
               borderRadius: '4px',
               transition: 'background-color 0.3s'
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#34495e'}
-            onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             About
           </Link>
@@ -68,8 +64,6 @@ function Navbar() {
               borderRadius: '4px',
               transition: 'background-color 0.3s'
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#34495e'}
-            onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             Services
           </Link>
@@ -82,8 +76,6 @@ function Navbar() {
               borderRadius: '4px',
               transition: 'background-color 0.3s'
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#34495e'}
-            onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             Contact
           </Link>
