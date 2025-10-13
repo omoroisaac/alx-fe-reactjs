@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useRecipeStore from './recipeStore'
 import DeleteRecipeButton from './DeleteRecipeButton'
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes)
+  const navigate = useNavigate()
 
   return (
     <div className="recipe-list">
