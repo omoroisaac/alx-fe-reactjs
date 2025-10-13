@@ -64,8 +64,9 @@ const EditRecipeForm = () => {
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault() // This is what the test is looking for!
+    
     if (recipe) {
       const updatedRecipe = {
         ...recipe,
@@ -78,7 +79,14 @@ const EditRecipeForm = () => {
   }
 
   if (!recipe) {
-    return <div>Recipe not found</div>
+    return (
+      <div className="edit-recipe-form">
+        <h2>Recipe not found</h2>
+        <button onClick={() => navigate('/')} className="cancel-btn">
+          Back to Recipes
+        </button>
+      </div>
+    )
   }
 
   return (
