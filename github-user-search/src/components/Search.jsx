@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { advancedUserSearch, getUsersDetailsBatch } from '../services/githubService';
+import { fetchUserData, getUsersDetailsBatch } from '../services/githubService';
 
 const Search = () => {
   const [searchParams, setSearchParams] = useState({
@@ -36,7 +36,8 @@ const Search = () => {
     setError('');
 
     try {
-      const result = await advancedUserSearch(searchParams, page, 9);
+      // Use fetchUserData instead of advancedUserSearch
+      const result = await fetchUserData(searchParams, page, 9);
       
       // Get detailed information for each user
       const detailedUsers = await getUsersDetailsBatch(result.users.map(user => user.login));
