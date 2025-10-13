@@ -10,7 +10,8 @@ const AddRecipeForm = () => {
     description: '',
     ingredients: [''],
     instructions: '',
-    cookingTime: 0
+    cookingTime: 30,
+    category: 'breakfast'
   })
 
   const handleInputChange = (e) => {
@@ -60,7 +61,8 @@ const AddRecipeForm = () => {
         description: '',
         ingredients: [''],
         instructions: '',
-        cookingTime: 0
+        cookingTime: 30,
+        category: 'breakfast'
       })
       navigate('/')
     }
@@ -92,16 +94,36 @@ const AddRecipeForm = () => {
         />
       </div>
 
-      <div className="form-group">
-        <input
-          type="number"
-          name="cookingTime"
-          value={formData.cookingTime}
-          onChange={handleInputChange}
-          placeholder="Cooking Time (minutes)"
-          min="1"
-          required
-        />
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="cookingTime">Cooking Time (minutes)</label>
+          <input
+            type="number"
+            id="cookingTime"
+            name="cookingTime"
+            value={formData.cookingTime}
+            onChange={handleInputChange}
+            min="1"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="category">Category</label>
+          <select
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="dessert">Dessert</option>
+            <option value="snack">Snack</option>
+          </select>
+        </div>
       </div>
 
       <div className="form-group">
@@ -130,12 +152,14 @@ const AddRecipeForm = () => {
       </div>
 
       <div className="form-group">
+        <label htmlFor="instructions">Instructions</label>
         <textarea
+          id="instructions"
           name="instructions"
           value={formData.instructions}
           onChange={handleInputChange}
-          placeholder="Enter step-by-step instructions..."
           rows="6"
+          placeholder="Enter step-by-step instructions..."
           required
         />
       </div>

@@ -3,6 +3,8 @@ import RecipeList from './components/RecipeList'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeDetails from './components/RecipeDetails'
 import EditRecipeForm from './components/EditRecipeForm'
+import SearchBar from './components/SearchBar'
+import RecipeFilters from './components/RecipeFilters'
 import './App.css'
 
 function App() {
@@ -19,6 +21,10 @@ function App() {
             <Route path="/" element={
               <>
                 <AddRecipeForm />
+                <div className="search-filters-section">
+                  <SearchBar />
+                  <RecipeFilters />
+                </div>
                 <RecipeList />
               </>
             } />
