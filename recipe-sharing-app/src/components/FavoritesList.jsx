@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import useRecipeStore from '../store/recipeStore'
+import useRecipeStore from './recipeStore'
 
 const FavoritesList = () => {
   const favoriteRecipes = useRecipeStore(state => state.favoriteRecipes)
