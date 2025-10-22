@@ -1,78 +1,66 @@
 import React, { useState } from 'react';
+import AddTodoForm from './AddTodoForm';
+import TodoItem from './TodoItem';
 import './TodoList.css';
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+// Static array of initial todos
+const initialTodos = [
+  { id: 1, text: 'Learn React', completed: true },
+  { id: 2, text: 'Build a Todo App', completed: false },
+  { id: 3, text: 'Write Tests', completed: false }
+];
 
-  const handleAddTodo = () => {
-    if (inputValue.trim() !== '') {
+const TodoList = () => {
+  const [todos, setTodos] = useState(initialTodos);
+
+  // Method to add new todo
+  const addTodo = (text) => {
+    if (text.trim() !== '') {
       const newTodo = {
-        id: Date.now(),
-        text: inputValue.trim(),
+        id: Date.now(), // Simple ID generation
+        text: text.trim(),
         completed: false
       };
       setTodos([...todos, newTodo]);
-      setInputValue('');
     }
   };
 
-  const handleDeleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  };
-
-  const handleToggleTodo = (id) => {
+  // Method to toggle todo completion
+  const toggleTodo = (id) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleAddTodo();
-    }
+  // Method to delete todo
+  const deleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
     <div className="todo-container">
       <h1>Todo List</h1>
       
-      <div className="input-section">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="Add a new todo..."
-          className="todo-input"
-        />
-        <button onClick={handleAddTodo} className="add-button">
-          Add Todo
-        </button>
-      </div>
-
+      <AddTodoForm onAddTodo={addTodo} />
+      
       <ul className="todo-list">
         {todos.map(todo => (
-          <li key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-            <span
-              className="todo-text"
-              onClick={() => handleToggleTodo(todo.id)}
-            >
-              {todo.text}
-            </span>
-            <button
-              onClick={() => handleDeleteTodo(todo.id)}
-              className="delete-button"
-            >
-              Delete
-            </button>
-          </li>
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggle={toggleTodo}
+            onDelete={deleteTodo}
+          />
         ))}
       </ul>
 
       {todos.length === 0 && (
         <p className="empty-message">No todos yet. Add one above!</p>
       )}
+
+      <div className="todo-stats">
+        <p>Total: {todos.length} | Completed: {todos.filter(todo => todo.completed).length} | Pending: {todos.filter(todo => !todo.completed).length}</p>
+      </div>
     </div>
   );
 };
