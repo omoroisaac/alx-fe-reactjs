@@ -1,4 +1,4 @@
-import useRecipeStore from './recipeStore'
+import useRecipeStore from '../store/recipeStore'
 
 const FavoriteButton = ({ recipeId, size = 'medium' }) => {
   const isFavorite = useRecipeStore(state => state.isFavorite(recipeId))

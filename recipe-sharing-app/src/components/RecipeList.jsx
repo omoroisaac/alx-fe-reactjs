@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import useRecipeStore from './recipeStore'
+import useRecipeStore from '../store/recipeStore'
 import DeleteRecipeButton from './DeleteRecipeButton'
 import FavoriteButton from './FavoriteButton'
 
